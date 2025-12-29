@@ -1,0 +1,14 @@
+
+---
+
+## Requirements
+- Python **3.9+**
+- Packages:
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+
+### Install
+```bash
+pip install numpy pandas scipy scikit-learn
