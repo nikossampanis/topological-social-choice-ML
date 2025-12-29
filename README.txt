@@ -1,82 +1,23 @@
-# Topological Social Choice Machine Learning
+# Topological Social Choice ML
+**Topological Machine Learning for Real-World Elections via Borda Embeddings + Persistent Homology**  
+Homology-separated **Polar Persistence Distance (PPD)** kernel + **SVM** for election classification (Condorcet-cycle detection).
 
-This repository accompanies the research paper:
-
-**Topological Machine Learning for Real-World Elections via Borda Embeddings**  
-*A Homology-Separated Polar Persistence Kernel for SVM Classification*
-
-Author: Nikolaos Sampanis
+Repo: https://github.com/nikossampanis/topological-social-choice-ML
 
 ---
 
 ## Overview
+This project implements an end-to-end pipeline:
+1. **Parse elections** (PrefLib-style strict orders, e.g., `.soi`)
+2. **Embed votes** as **Borda vectors** → election becomes a point cloud in \(\mathbb{R}^m\)
+3. Compute **Vietoris–Rips persistent homology** in degrees \(H_0, H_1, H_2\)
+4. Compare persistence diagrams via a **Polar Persistence Distance (PPD)** (persistence-weighted, diagonal-suppressing matching)
+5. Build a **homology-separated Gaussian (RBF) kernel**
+6. Train/test **SVM** using the precomputed kernel matrix
+7. Export **CSV** + **APA-style LaTeX tables** for papers
 
-This project proposes a complete **topological machine learning pipeline**
-for the analysis and classification of elections with ordinal preference profiles.
-
-Each election is treated as a geometric and topological object:
-- individual rankings are embedded into Euclidean space via **Borda vectors**,
-- elections become point clouds,
-- **persistent homology** (H₀, H₁, H₂) is computed using Vietoris–Rips filtrations,
-- persistence diagrams are compared using a novel **Polar Persistence Distance (PPD)**,
-- a **homology-separated Gaussian kernel** enables **SVM classification of elections**
-  without diagram vectorization.
-
-The methodology is designed to be:
-- interpretable (homology separation),
-- stable (diagram-level and profile-level guarantees),
-- suitable for real-world election data.
+> Design note: the code is intentionally self-contained and does **not** require external TDA libraries (e.g., ripser/gudhi).
 
 ---
 
-## Repository Structure
-
-
----
-
-## Main Script
-
-- `classification_pipeline.py`
-
-Implements the full pipeline:
-1. parsing election files (PrefLib-style strict orders),
-2. Borda embedding and point cloud construction,
-3. persistent homology computation,
-4. Polar Persistence Distance (PPD),
-5. kernel matrix construction,
-6. SVM training and evaluation.
-
-The script is modular and can be extended to:
-- cross-validation,
-- homology ablation,
-- alternative kernels or classifiers.
-
----
-
-## Data
-
-- `data/tda_pref_profile_results.csv`  
-  Contains processed per-election topological summaries used for reporting.
-
-- `data/tda_pref_profile_results_table.tex`  
-  LaTeX-ready subset used directly in the manuscript tables.
-
-Raw election data originate from **PrefLib**:
-http://www.preflib.org
-
----
-
-## Dependencies
-
-Minimal Python dependencies:
-
-numpy
-scipy
-pandas
-scikit-learn
-
-
-Install with:
-
-```bash
-pip install numpy scipy pandas scikit-learn
+## Repository structure
